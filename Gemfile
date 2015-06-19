@@ -3,7 +3,7 @@ ruby '2.2.1'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.1'
+gem 'rails'
 
 group :development, :test do
 # Use sqlite3 as the database for Active Record
@@ -15,6 +15,7 @@ group :development, :test do
 	gem 'web-console', '~> 2.0'
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 	gem 'spring'
+	gem 'rails4-autocomplete', '~> 1.1.1'
 end
 
 group :test do
@@ -33,6 +34,7 @@ gem 'coffee-rails', '~> 4.1.0'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+gem "jquery-ui-rails"
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
