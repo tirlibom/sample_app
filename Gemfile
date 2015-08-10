@@ -3,12 +3,17 @@ ruby '2.2.1'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+
 gem 'rails'
+gem 'pg'
 
 group :development, :test do
-# Use sqlite3 as the database for Active Record
-	gem 'sqlite3'
-	gem 'rspec-rails'
+    gem 'rspec-rails'
+    gem 'guard-rspec'
+    gem 'spork', github: 'sporkrb/spork'
+    gem 'spork-rails'
+    gem 'guard-spork'
+    gem 'childprocess'
 # Call 'byebug' anywhere in the code to stop execution and get a debugger console
 	gem 'byebug'
 # Access an IRB console on exception pages or by using <%= console %> in views
@@ -23,6 +28,7 @@ group :test do
 	gem 'capybara'
 end
 
+gem 'libnotify'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -55,6 +61,5 @@ group :doc do
 end
 
 group :production do
-	gem 'pg'
 	gem 'rails_12factor'
 end
