@@ -24,7 +24,7 @@
 #  * zeus: 'zeus rspec' (requires the server to be started separately)
 #  * 'just' rspec: 'rspec'
 
-guard :rspec, cmd: "bundle exec rspec", all_after_pass: false, cli: '--drb' do
+guard :rspec, cmd: "bundle exec rspec --drb", all_after_pass: false do
   require "guard/rspec/dsl"
   dsl = Guard::RSpec::Dsl.new(self)
 
@@ -49,17 +49,24 @@ guard :rspec, cmd: "bundle exec rspec", all_after_pass: false, cli: '--drb' do
     [
       rspec.spec.("routing/#{m[1]}_routing"),
       rspec.spec.("controllers/#{m[1]}_controller"),
+      rspec.spec.("requests/#{m[1]}"),
       rspec.spec.("acceptance/#{m[1]}")
     ]
   end
 
   # Rails config changes
   watch(rails.spec_helper)     { rspec.spec_dir }
-  watch(rails.routes)          { "#{rspec.spec_dir}/routing" }
+  watch(rails.routes)          { rspec.spec_dir }
   watch(rails.app_controller)  { "#{rspec.spec_dir}/controllers" }
 
   # Capybara features specs
-  watch(rails.view_dirs)     { |m| rspec.spec.("features/#{m[1]}") }
+  watch(rails.view_dirs) do |m|
+    [
+      rspec.spec.("features/#{m[1]}"),
+      rspec.spec.("requests/#{m[1]}")
+    ]
+  end
+
   watch(rails.layouts)       { |m| rspec.spec.("features/#{m[1]}") }
 
   # Turnip features and steps
@@ -79,4 +86,16 @@ guard :spork, :cucumber_env => { 'RAILS_ENV' => 'test' }, :rspec_env => { 'RAILS
   watch('spec/spec_helper.rb') { :rspec }
   watch('test/test_helper.rb') { :test_unit }
   watch(%r{features/support/}) { :cucumber }
+end
+
+guard :bundler do
+  require 'guard/bundler'
+  require 'guard/bundler/verify'
+  helper = Guard::Bundler::Verify.new
+
+  files = ['Gemfile']
+  files += Dir['*.gemspec'] if files.any? { |f| helper.uses_gemspec?(f) }
+
+  # Assume files are symlinked from somewhere
+  files.each { |file| watch(helper.real_path(file)) }
 end

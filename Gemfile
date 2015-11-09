@@ -5,10 +5,13 @@ ruby '2.2.1'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 
 gem 'rails'
+gem 'bootstrap-sass', '2.3.2.0'
 gem 'pg'
 
 group :development, :test do
+    gem 'guard-bundler', require: false
     gem 'rspec-rails'
+    gem 'rspec-core'
     gem 'guard-rspec'
     gem 'spork', github: 'sporkrb/spork'
     gem 'spork-rails'
