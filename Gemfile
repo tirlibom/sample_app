@@ -7,6 +7,7 @@ ruby '2.2.1'
 gem 'rails'
 gem 'bootstrap-sass', '2.3.2.0'
 gem 'pg'
+gem 'bcrypt'
 
 group :development, :test do
     gem 'guard-bundler', require: false
