@@ -15,6 +15,7 @@
 /log/*
 !/log/.keep
 /tmp
+/bundler_stubs/*
 
 # Игнорирование прочих ненужных файлов.
 database.yml
